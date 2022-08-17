@@ -1,11 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def index(request):
-    return HttpResponse('Главнвя страница')
 
-def group_posts(requests, any_slug):
-    return HttpResponse(f'Группа под названием {any_slug}')
+def index(request):
+    template = 'posts/index.html'
+    text = 'Это главная страница проекта Yatube'
+    context = {
+        'text': text,
+    }
+    return render(request, template, context) 
+
+def group_posts(request):
+    template = 'posts/group_list.html'
+    text = 'Здесь будет информация о группах проекта Yatube'
+    context = {
+        'text': text,
+    }
+    return render(request, template, context)
 
 
 
