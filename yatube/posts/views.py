@@ -1,22 +1,32 @@
+from turtle import title
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Post, Group
+from django.shortcuts import render, get_object_or_404
 
 
 def index(request):
+    posts = Post.objects.order_by('-pub_date')[:10]
     template = 'posts/index.html'
-    text = 'Это главная страница проекта Yatube'
+    title = 'YaTube'
     context = {
-        'text': text,
+        'title': title,
+        'text': 'Это главная страница YaTube',
+        'posts': posts,
     }
     return render(request, template, context) 
 
-def group_posts(request):
-    template = 'posts/group_list.html'
-    text = 'Здесь будет информация о группах проекта Yatube'
-    context = {
-        'text': text,
-    }
-    return render(request, template, context)
 
+def group_posts(request, slug):
+    group = get_object_or_404(Group, slug=slug)
+    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
+    template = 'posts/group_list.html'
+    title = 'Group'
+    context = {
+        'title': title,
+        'text': 'Здесь будет информация о группах проекта YaTube',
+        'group': group,
+        'posts': posts,
+    }
+    return render(request, template, context) 
 
 
