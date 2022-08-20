@@ -1,4 +1,3 @@
-from turtle import title
 from .models import Post, Group
 from django.shortcuts import render, get_object_or_404
 
@@ -12,7 +11,8 @@ def index(request):
         'text': 'Это главная страница YaTube',
         'posts': posts,
     }
-    return render(request, template, context) 
+    return render(request, template, context)
+
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
@@ -25,6 +25,4 @@ def group_posts(request, slug):
         'group': group,
         'posts': posts,
     }
-    return render(request, template, context) 
-
-
+    return render(request, template, context)

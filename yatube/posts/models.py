@@ -1,4 +1,3 @@
-from cgitb import text
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -11,7 +10,9 @@ class Group(models.Model):
     def __str__(self):
         return self.title
 
+
 User = get_user_model()
+
 
 class Post(models.Model):
     text = models.TextField()
@@ -19,13 +20,12 @@ class Post(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name = 'posts',
+        related_name='posts',
     )
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,
         related_name='posts',
-        blank=True, 
+        blank=True,
         null=True,
     )
-
