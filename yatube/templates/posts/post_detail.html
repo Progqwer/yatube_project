@@ -1,31 +1,31 @@
 {% extends "base.html" %}
-{% block title %}{{text}}{% endblock %}
+{% block title %}  {{title}}  {% endblock %}
 {% block content%}
-  <head>
-    <!-- Подключены иконки, стили и заполенены мета теги -->
-    <title>Пост <!-- Первые 30 букв поста --></title>
-  </head>
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Дата публикации: <!-- 31 июля 1854 --> 
+              Дата публикации: {{ post.pub_date|date:"d E Y" }}
             </li>
-            <!-- если у поста есть группа -->   
             <li class="list-group-item">
-              Группа: <!-- Название группы -->
-              <a href="<!-- -->">
-                все записи группы
+              {% if post.group %}
+                Группа: {{ post.group }}
+              <a href="{% url 'posts:group_list' post.group.slug %}">
+                <p>все записи группы</p>
               </a>
+              {% endif%}
             </li>
             <li class="list-group-item">
-              Автор: <!--Лев Толстой-->
+              Автор: {{ post.author.get_full_name }}
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Всего постов автора:  <span ><!-- --></span>
+              Всего постов автора: <span >{{ post_counter }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Номер поста: <span>{{ post_id }}</sapn>
             </li>
             <li class="list-group-item">
-              <a href="<!-- -->">
+              <a href="{% url 'posts:profile' post.author.username %}">
                 все посты пользователя
               </a>
             </li>

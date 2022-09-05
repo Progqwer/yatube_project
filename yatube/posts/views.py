@@ -59,5 +59,6 @@ def post_detail(request, post_id):
         'post': post,
         'author_post': author_post,
         'post_counter': post_counter,
+        'post_id': post_id,
     }
     return render(request, template, context)
